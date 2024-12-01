@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"login","c":"User","l":"conectarBD()"},{"p":"login","c":"User","l":"nome"},{"p":"login","c":"User","l":"result"},{"p":"login","c":"User","l":"User()","u":"%3Cinit%3E()"},{"p":"login","c":"User","l":"verificarUsuario(String, String)","u":"verificarUsuario(java.lang.String,java.lang.String)"}];updateSearchResults();
