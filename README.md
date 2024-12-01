@@ -1,10 +1,10 @@
 # Teste-Caixa-Branca
 
-# Problemas Encontrados no Código
+# Parte I: Problemas Encontrados no Código
 
-Este documento descreve todos os problemas encontrados no código inicial fornecido para a classe `User`, que implementa funcionalidades de conexão a um banco de dados MySQL e verificação de login de usuários. Os problemas estão divididos em tópicos, e as respectivas soluções aplicadas também foram documentadas.
+A seguir serão descritos todos os problemas encontrados no código para a classe `User`, que implementam funcionalidades de conexão a um banco de dados MySQL e verificação de login de usuários.
 
----
+Os problemas estão divididos em tópicos, e as respectivas soluções aplicadas também estão documentadas.
 
 ## **1. Driver Depreciado**
 
@@ -127,3 +127,104 @@ Este documento descreve todos os problemas encontrados no código inicial fornec
   // Apenas criar a conexão diretamente:
   Connection conn = DriverManager.getConnection(url);
   ```
+
+---
+
+---
+
+# Parte II: Grafo de Fluxo
+
+Um Grafo de Fluxo é usada para modelar o fluxo de controle dentro de um programa. Ele ajuda a identificar os caminhos que o código pode seguir durante sua execução, destacando pontos de decisão, loops e o fluxo lógico do programa.
+
+## **1. Identificação dos pontos de fluxos**
+
+### **Enumeração dos pontos importantes no fluxo de execução:**
+
+### Método `conectarBD`;
+
+1- Início do método; </br>
+2- Inicialização de `conn` como `null`;</br>
+3- Tentativa de carregar o driver e conectar ao banco (bloco `try`);</br>
+4- Conexão obtida com sucesso;</br>
+5- Exceção capturada (bloco `catch`);</br>
+6- Retorno do objeto `conn`;</br>
+
+### Método `verificarUsuario`;
+
+7- Início do método;</br>
+8- Chamada ao método `conectarBD`;</br>
+9- Montagem da instrução SQL;</br>
+10- Execução da consulta SQL (bloco `try`);</br>
+11- Usuário encontrado (condição `if` no ResultSet);</br>
+12- Exceção capturada (bloco `catch`);</br>
+13- Retorno do resultado (`result`).</br>
+
+## **2. Grafo de fluxo**
+
+Grafo de controle, considerando os fluxos possíveis entre os pontos:
+
+### Método `conectarBD`: </br>
+
+1 -> 2 -> 3 -> (4 ou 5) -> 6
+
+### Método `verificarUsuario`: </br>
+
+7 -> 8 -> 9 -> 10 -> (11 ou 12) -> 13
+
+### Complexidade Ciclomática:
+
+Método `conectarBD`: 2 </br>
+Método `verificarUsuario`: 3
+
+#### Método `conectarBD`: </br>
+
+1 → 2 → 3 → 4 → 6 </br>
+1 → 2 → 3 → 5 → 6 </br>
+
+### Sequências de Caminhos
+
+#### Método `conectarBD`: </br>
+
+1 → 2 → 3 → 4 → 6 </br>
+1 → 2 → 3 → 5 → 6 </br>
+
+#### Método `verificarUsuario`: </br>
+
+7 → 8 → 9 → 10 → 11 → 13 </br>
+7 → 8 → 9 → 10 → 12 → 13 </br>
+
+### Grafo Graficamente Representado
+
+- Nodos: Cada ponto numerado é um nodo.
+- Arestas: São as transições entre os nodos.
+
+#### Grafo de Controle - Método `conectarBD`:
+
+![](https://imgur.com/8BONzZ6.png)
+
+#### Grafo de Controle - Método `verificarUsuario`:
+
+![](https://imgur.com/aeyXg4z.png)
+
+## **3. Complexidade Ciclomática**
+
+Grafo de controle, considerando os fluxos possíveis entre os pontos:
+
+Fórmula: V(G) = E − N + 2
+
+E: Número de arestas. </br>
+N: Número de nodos. </br>
+
+#### Para o método `conectarBD`:
+
+Nodos (N): 6 </br>
+Arestas (E): 6 </br>
+
+V(G) = 6 − 6 + 2 = 2
+
+#### Para o método `verificarUsuario`:
+
+Nodos (N): 7 </br>
+Arestas (E): 8 </br>
+
+V(G) = 8 − 7 + 2 = 3
